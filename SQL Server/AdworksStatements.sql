@@ -167,3 +167,26 @@ JOIN DimEmployee d1
 ON d.ParentEmployeeKey = d1.EmployeeKey
 GROUP BY d1.EmployeeKey,d1.FirstName
 
+SELECT * FROM DimEmployee
+
+SELECT ISNULL(FirstName,'')+' '+ISNULL(MiddleName,'')+' '+ISNULL(LastName,'') 
+AS [Full Name]
+FROM DimEmployee 
+
+DECLARE @intFLAG INT
+SET @intFlag = 1
+DECLARE @Name varchar(50)
+WHILE(@intFLAG < 11)
+BEGIN
+	(SELECT @Name =  
+	('Emplyee Name :'
+	+ISNULL(FirstName,'')
+	+' '
+	+ISNULL(MiddleName,'')
+	+' '
+	+ISNULL(LastName,'') )
+    FROM [dbo].[DimEmployee] WHERE EmployeeKey = @intFLAG)
+    
+    PRINT @Name
+    SET @intFlag = @intFlag + 1
+END
